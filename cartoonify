@@ -1,0 +1,12 @@
+#!/bin/sh
+
+url=$1
+filename=clip$(ls -1 | wc -l)
+
+
+proxychains yt-dlp $url -o $filename
+python3 main.py $(ls | grep $filename)
+
+title=$(proxychains yt-dlp --skip-download --get-title --no-warnings $url | sed 2d)
+echo $title
+echo $url
